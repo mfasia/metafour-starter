@@ -3,7 +3,7 @@ A spring-boot application for metafour new comers.
 
 # Steps
 1. Project fork, clone in STS and run the project details: https://youtu.be/z_uFyKUPzsM
-2. Metafour ui details: http://netscreens.cust.m4.net/tomdemo/bootstrap/codeexamples.html
+2. Metafour ui details: http://eofficebd.metafour.lan/metafour-ui/codeexamples.html
 3. Thymeleaf tutorial: http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
 
 # Thymeleaf templating
