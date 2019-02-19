@@ -60,7 +60,7 @@
 								<label for="datepicker" class="control-label" th:text="#{person.birthdate.label}"></label>
 								<div class="controls">
 									<div class="input-append">
-										<input id="datepicker"	th:field="*{dateOfBirth}" class="input-datesize include con-datepicker" type="text"
+										<input id="datepicker"	data-required="required" th:field="*{dateOfBirth}" class="input-datesize include con-datepicker" type="text"
 											name="datepicker"/>
 											<span class="add-on"><i
 											class="icon-calendar"></i></span>
@@ -71,22 +71,21 @@
 								<div class="control-group">
 									<label for="groupofradios" class="control-label" th:text="#{person.sex.label}"></label>
 									<div class="controls">
-										<label class="radio"> <input type="radio"
+										 <input type="radio"
 											id="groupofradiosradio1"  value="male" th:field="*{sex}" class="include" />
-											Male
-										</label> <label class="radio"> <input type="radio"
+											Male &nbsp;
+										<input type="radio"
 											id="groupofradiosradio2" value="female" th:field="*{sex}" class="include" />
 											Female
-										</label> 
-									</div>
+										</div>
 								</div>
 							<!-- Checkbox -->
 								<div class="control-group">
-								    <label class="control-label" for="singlecheckbox" th:text="#{person.married.label}"></label>
+								 <!--    <label class="control-label" for="singlecheckbox" th:text="#{person.married.label}"></label> -->
 								    <div class="controls ">
 								        <label class="checkbox">
 								            <input id="singlecheckbox" type="checkbox" th:field="*{married}" value="checkvalue" class="include"/>
-								        <!--     Married -->
+								         Married 
 								        </label>
 								    </div>
 								</div>
@@ -112,7 +111,7 @@
 									<div class="controls">
 										<div class="input-append">
 											<input class="typeahead include" id="destinationsearch"
-												type="text" data-required="required" autocomplete="off"
+												type="text"  autocomplete="off"
 												placeholder="City" data-search-url="/search/destination/"
 												th:attr="data-search-url=@{'/search/city/'}" /><span
 												class="add-on"><i class="icon-search"></i></span>
@@ -137,11 +136,11 @@
 							    <label for="startandenddatestart" class="control-label" th:text="#{person.trainingdate.label}"></label>
 							    <div class="controls ">
 							        <div class="input-append inlineappends">
-							            <input id="startandenddatestart" th:field="*{trainingStartDate}" class="input-datesize include con-startdate" type="text" data-datepair="startandenddates" name="startandenddatesstart" placeholder="Required" /><span class="add-on"><i class="icon-calendar"></i></span>
+							            <input id="startandenddatestart" th:field="*{trainingStartDate}" class="input-datesize include con-startdate" type="text" data-datepair="startandenddates" name="startandenddatesstart" placeholder="Sale start date" /><span class="add-on"><i class="icon-calendar"></i></span>
 							        </div>
 							        <span class="add-on">to</span>
 							        <div class="input-append inlineappends">
-							            <input id="startandenddateend" th:field="*{trainingEndDate}" class="input-datesize include con-enddate" type="text" data-datepair="startandenddates" name="startandenddatesend" placeholder="Required" /><span class="add-on"><i class="icon-calendar"></i></span>
+							            <input id="startandenddateend" th:field="*{trainingEndDate}" class="input-datesize include con-enddate" type="text" data-datepair="startandenddates" name="startandenddatesend" placeholder="Sale end date" /><span class="add-on"><i class="icon-calendar"></i></span>
 							        </div>
 							    </div>
 							</div>
