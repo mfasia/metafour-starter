@@ -1,13 +1,148 @@
 <!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Something going to be special.......</title>
-	</head>
-	<body>
-		<h1>Welcome to Metafour! Hope you will enjoy working with us.</h1>
-		<h2>Try to make workable this screen as suggested in the project <a target="_blank" href="https://github.com/mfasia/metafour-starter">readme</a></h2>
-		<h3>See following add and update screen</h3>
-		<a th:href="@{/img/person_add.png}" target="_blank"><img alt="Add screen" th:src="@{/img/person_add.png}" height="500px"/></a>
-		<a th:href="@{/img/person_update.png}" target="_blank"><img alt="Update screen" th:src="@{/img/person_update.png}" height="500px"/></a>
-	</body>
+<head>
+<meta charset="utf-8" />
+<title th:text="#{person.title}">Person</title>
+<span th:substituteby="commons :: common-css"></span>
+</head>
+<body th:with="isNew=${#strings.isEmpty(person.id)}">
+	<div id="headerbar" class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<span class="brand" th:text="#{person.brand}">Person</span>
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right" th:if="${isNew}">
+						<li><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.create}">Create</a></li>
+					</ul>
+					<ul class="nav pull-right" th:unless="${isNew}">
+						<li><a class="editmode" id="addbutton" th:href="@{'/person'}" th:text="#{action.add}">Add</a></li>
+						<li><a class="editmode" id="updatebutton" th:text="#{action.update}">Update</a></li>
+						<li class="nodisplay"><a class="viewmode updatebutton addbutton submit" id="headerconfirmbutton" th:text="#{action.save}">Save</a></li>
+						<li class="nodisplay"><a class="viewmode updatebutton" id="headercancelbutton" th:text="#{action.cancel}">Cancel</a></li>
+					</ul>
+					<form id="searchform" class="navbar-search pull-right" method="get" th:action="@{'/person/'}">
+						<input id="datasearchfield" class="typeahead search-query" type="text" placeholder="Search" data-provide="typeahead" th:attr="data-search-url=@{'/search/person/'}" />
+						<input class="typeahead-val" type="hidden" name="code" value="" />
+						<input class="typeahead-desc" type="hidden" value="" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="container" class="container">
+		<header id="overview" class="subhead">
+			<div class="subnav subnav-fixed" id="subnavscroll">
+				<ul class="nav nav-pills">
+				</ul>
+			</div>
+		</header>
+
+		<form id="mainform" th:object="${person}" class="form-horizontal" method="POST" autocomplete="off" th:action="@{'/person'}">
+			<section>
+				<div class="row anything noheader">
+					<div class="span6 offset3">
+						<fieldset>
+							<div class="control-group">
+								<label for="description" class="control-label" th:text="#{person.name}">Name</label>
+								<div class="controls">
+									<input id="description" data-required="required" th:field="*{name}" type="text" data-maxlength="50" class="include" placeholder="Person name" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="dobfield" th:text="#{person.dateOfBirth}">Date of birth</label>
+								<div class="controls">
+									<div class="input-append">
+										<input id="dateOfBirth" name="dateOfBirth" data-required="required" th:field="*{dateOfBirth}" type="text" class="input-datesize include con-datepicker" />
+										<span class="add-on">
+											<i class="icon-calendar"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="sex" class="control-label" th:text="#{person.sex}">Sex</label>
+								<div class="controls">
+									<label class="input-append inlineappends" for="sex1">
+										<input type="radio" th:field="*{sex}" name="idea" id="sex1" value="male" /> Male
+									</label> 
+									<label class="input-append inlineappends" for="sex2">
+										<input type="radio" th:field="*{sex}" name="idea" id="sex2" value="female" /> Female
+									</label>
+								</div>
+							</div>
+							<div class="control-group">
+								<div class="controls ">
+									<label class="checkbox">
+										<input id="married" th:field="*{married}" type="checkbox" name="married" value="married" class="include" />Married
+									</label>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="highestDegree" class="control-label" th:text="#{person.highestDegree}">Highest degree</label>
+								<div class="controls">
+									<select id="highestDegree" th:field="*{highestDegree}" class="input-large include">
+										<option th:each="degree : ${degrees}" th:value="${degree}" th:text="${degree}"></option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="address" class="control-label" th:text="#{person.address}">Address</label>
+								<div class="controls">
+									<textarea id="address" th:field="*{address}" name="address" class="input-large include"></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="search" class="control-label" th:text="#{person.city}">City</label>
+								<div class="controls">
+									<div class="input-append">
+										<input class="typeahead input-large include" id="citysearch" type="text" autocomplete="off" placeholder="City" data-search-url="/search/city/" th:attr="data-search-url=@{'/search/city/'}" data-search-settings="search" />
+										<span class="add-on">
+											<i class="icon-search"></i>
+										</span>
+										<input class="typeahead-val" type="hidden" th:field="*{city}" />
+										<input class="typeahead-desc" type="hidden" value="" />
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="courses" class="control-label" th:text="#{person.courses}">Courses</label>
+								<div class="controls">
+									<select id="courses" name="courses" th:field="*{courses}" class="include con-multiselect" multiple="multiple">
+										<option th:each="course : ${courses.entrySet()}" th:value="${course.key}" th:text="${course.value}" />
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label for="startandenddatestart" class="control-label" th:text="#{person.trainingDates}">Training dates</label>
+								<div class="controls ">
+									<div class="input-append inlineappends">
+										<input id="trainingStartDate" th:field="*{trainingStartDate}" class="input-datesize include con-startdate" type="text" data-datepair="startandenddates" name="trainingStartDate" placeholder="Sale start date" />
+										<span class="add-on">
+											<i class="icon-calendar"></i>
+										</span>
+									</div>
+									<span class="add-on">to</span>
+									<div class="input-append inlineappends">
+										<input id="trainingEndDate" th:field="*{trainingEndDate}" class="input-datesize include con-enddate" type="text" data-datepair="startandenddates" name="trainingEndDate" placeholder="Sale end date" />
+										<span class="add-on">
+											<i class="icon-calendar"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+			</section>
+		</form>
+	</div>
+
+
+	<span th:substituteby=" commons ::common-html"> </span>
+	<span th:substituteby="commons :: common-js"></span>
+</body>
 </html>
