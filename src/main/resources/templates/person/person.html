@@ -87,10 +87,10 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="citysearch" class="control-label">City</label>
+								<label for="search" class="control-label">City</label>
 								<div class="controls">
 									<div class="input-append">
-										<span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span> <input class="typeahead include" id="citysearch" type="text" data-required="required" autocomplete="off" placeholder="City" data-search-url="/search/city/" th:attr="data-search-url=@{'/search/city/'}" /> <span class="add-on"><i class="icon-search"></i></span> <input class="typeahead-val" type="hidden" th:field="*{city}" /> <input class="typeahead-desc" type="hidden" value="" />
+										<input class="typeahead input-large include" id="citysearch" type="text" autocomplete="off" placeholder="City" data-search-url="/search/city/" th:attr="data-search-url=@{'/search/city/'}" data-search-settings="search" /> <span class="add-on"><i class="icon-search"></i></span> <input class="typeahead-val" type="hidden" th:field="*{city}" /> <input class="typeahead-desc" type="hidden" value="" />
 									</div>
 								</div>
 							</div>
